@@ -15,4 +15,7 @@ namespace Color
 			LogFatal  = 4, // Fatal log recorded
 		};
 	}
+
+	// Calls Exit on the application instance
+	void Exit(ExitCode::Type exitcode);
 }

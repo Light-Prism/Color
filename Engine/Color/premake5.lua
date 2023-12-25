@@ -18,7 +18,9 @@ project "Color"
 	includedirs
 	{
 		"Source",
-		"Source/Color"
+		"Source/Color",
+
+		"%{IncludeDir.spdlog}"
 	}
 	
 	defines
@@ -34,11 +36,21 @@ project "Color"
 		{
 			"CL_PLATFORM_WINDOWS"
 		}
+		
+		removefiles
+		{
+			"Source/Platform/Linux/**.cpp"
+		}
 	
 	filter "system:linux"
 		defines
 		{
 			"CL_PLATFORM_LINUX"
+		}
+		
+		removefiles
+		{
+			"Source/Platform/Windows/**.cpp"
 		}
 	
 	filter "configurations:Development"

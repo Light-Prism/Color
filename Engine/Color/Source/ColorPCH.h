@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Core/Log.h"
+
 #ifdef CL_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif

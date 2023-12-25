@@ -59,4 +59,21 @@ namespace Color
 		IMPLEMENT_COMPILER("Unknown C/C++ Compiler", Unknown);
 	#endif
 
+	enum class Platform
+	{
+		Windows,
+		Linux
+	};
+
+	#ifdef CL_PLATFORM_WINDOWS
+		#define CL_PLATFORM_NAME Windows
+		inline constexpr Platform c_Platform = Platform::Windows;
+	#elif defined CL_PLATFORM_LINUX
+		#define CL_PLATFORM_NAME Linux
+		inline constexpr Platform c_Platform = Platform::Linux;
+	#endif
+
+	#define CL_PLATFORM_NAME_STRING   CL_STRINGIFY(CL_PLATFORM_NAME)
+	#define ConcatWithPlatformName(x) CL_CONCAT(CL_PLATFORM_NAME, x)
+
 }

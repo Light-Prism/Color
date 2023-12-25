@@ -1,6 +1,8 @@
 #include "ColorPCH.h"
 #include "Application.h"
 
+#include "Utils/FileSystem.h"
+
 namespace Color
 {
 	Application::Application(const CommandLineArgs& args)
@@ -9,8 +11,28 @@ namespace Color
 		// TODO: Check instance validity
 		s_Instance = this;
 
+		Log::Init();
+		CL_CORE_INFO("Initialized logging.");
+
+		CL_CORE_INFO("Engine Build Info:");
+		CL_CORE_INFO("  Compiler         -> {0} ({1})", c_CompilerInfo.LongName, c_CompilerInfo.ShortName);
+		CL_CORE_INFO("  Compilation Date -> {0}", __DATE__);
+		CL_CORE_INFO("  Compilation Time -> {0}", __TIME__);
+
 		const ApplicationSpecification& spec = GetApplicationSpecification();
 		{
+			FileSystem::Path curWorkingDir = FileSystem::Abs(FileSystem::GetWorkingDir());
+			FileSystem::Path reqWorkingDir = FileSystem::Abs(spec.WorkingDir);
+
+			if (FileSystem::IsDir(reqWorkingDir) && curWorkingDir != reqWorkingDir)
+			{
+				CL_CORE_WARN("Application has requested a different working directory than the current one.");
+				CL_CORE_WARN("  Current Working Directory   -> {0}", curWorkingDir);
+				CL_CORE_WARN("  Requested Working Directory -> {0}", reqWorkingDir);
+
+				FileSystem::SetWorkingDir(reqWorkingDir);
+				CL_CORE_TRACE("Changed the working directory to -> {0}", FileSystem::Abs(FileSystem::GetWorkingDir()));
+			}
 		}
 	}
 
@@ -24,7 +46,7 @@ namespace Color
 	{
 		if (m_Running)
 		{
-			// TODO: Warn
+			CL_CORE_WARN("Cannot re-run an already running application instance!");
 			return;
 		}
 
@@ -47,7 +69,7 @@ namespace Color
 	{
 		if (!m_Running)
 		{
-			// TODO: Warn
+			CL_CORE_WARN("Cannot quit from a non-running application instance!");
 			return;
 		}
 

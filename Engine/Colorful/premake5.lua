@@ -15,7 +15,9 @@ project "Colorful"
 	{
 		"Source",
 		"%{SourceDir.Color}",
-		"%{SourceDir.Color}/Color"
+		"%{SourceDir.Color}/Color",
+
+		"%{IncludeDir.spdlog}"
 	}
 	
 	defines

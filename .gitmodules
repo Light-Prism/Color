@@ -1,0 +1,3 @@
+[submodule "Engine/Color/ThirdParty/spdlog"]
+	path = Engine/Color/ThirdParty/spdlog
+	url = https://github.com/gabime/spdlog
