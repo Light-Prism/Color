@@ -37,7 +37,7 @@ namespace Color
 
 	void Log::DebugPostFatalLog()
 	{
-		std::cout << "\x1b[33;1mThe application will be aborted due to that.\x1b[0m\n";
+		std::cout << "\x1b[33;1m  -> The application will be aborted due to that.\x1b[0m\n";
 		Exit(ExitCode::LogFatal);
 	}
 }

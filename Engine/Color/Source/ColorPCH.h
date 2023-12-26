@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Log.h"
+#include "Core/Assert.h"
 
 #ifdef CL_PLATFORM_WINDOWS
 	#include <Windows.h>

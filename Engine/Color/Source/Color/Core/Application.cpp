@@ -8,7 +8,7 @@ namespace Color
 	Application::Application(const CommandLineArgs& args)
 		: m_Args(args)
 	{
-		// TODO: Check instance validity
+		checkf(!s_Instance, "An application instance already exists!");
 		s_Instance = this;
 
 		Log::Init();
@@ -123,13 +123,13 @@ namespace Color
 
 	char* CommandLineArgs::At(uint32_t index) const
 	{
-		// TODO: Bounds checking
+		checkf(index < Size, "Index out of bounds!");
 		return List[index];
 	}
 
 	char* CommandLineArgs::operator[](uint32_t index) const
 	{
-		// TODO: Bounds checking
+		verifyf(index < Size, "Index out of bounds!");
 		return List[index];
 	}
 }
