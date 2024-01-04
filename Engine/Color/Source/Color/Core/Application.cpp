@@ -39,6 +39,8 @@ namespace Color
 		CL_CORE_INFO("Selected Graphics API -> {0}", RendererAPI::APIToString(RendererAPI::GetAPI()));
 
 		m_Window = Window::New(spec.WndProps);
+		m_Window->OnClose.Bind(BIND_METHOD(Quit));
+
 		if (!m_Window->Init())
 			CL_CORE_FATAL("Window creation failure!");
 
