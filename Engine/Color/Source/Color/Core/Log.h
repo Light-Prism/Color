@@ -21,14 +21,14 @@ namespace Color
 		virtual ~Logger() = default;
 
 		template <typename... Args>
-		void fatal(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void fatal(std::string_view fmt, Args&&... args)
 		{
 			log(spdlog::level::critical, fmt, std::forward<Args>(args)...);
 		}
 
 		// Runtime (Dist) log
 		template <typename... Args>
-		void RtLog(spdlog::level::level_enum level, spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtLog(spdlog::level::level_enum level, std::string_view fmt, Args&&... args)
 		{
 			const char* caption = nullptr;
 			DialogIcon icon;
@@ -75,31 +75,31 @@ namespace Color
 		}
 
 		template <typename... Args>
-		void RtTrace(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtTrace(std::string_view fmt, Args&&... args)
 		{
 			RtLog(spdlog::level::trace, fmt, std::forward<Args>(args)...);
 		}
 
 		template <typename... Args>
-		void RtInfo(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtInfo(std::string_view fmt, Args&&... args)
 		{
 			RtLog(spdlog::level::info, fmt, std::forward<Args>(args)...);
 		}
 
 		template <typename... Args>
-		void RtWarn(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtWarn(std::string_view fmt, Args&&... args)
 		{
 			RtLog(spdlog::level::warn, fmt, std::forward<Args>(args)...);
 		}
 
 		template <typename... Args>
-		void RtError(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtError(std::string_view fmt, Args&&... args)
 		{
 			RtLog(spdlog::level::err, fmt, std::forward<Args>(args)...);
 		}
 
 		template <typename... Args>
-		void RtFatal(spdlog::format_string_t<Args...> fmt, Args&&... args)
+		void RtFatal(std::string_view fmt, Args&&... args)
 		{
 			RtLog(spdlog::level::critical, fmt, std::forward<Args>(args)...);
 		}

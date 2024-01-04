@@ -1,3 +1,12 @@
 [submodule "Engine/Color/ThirdParty/spdlog"]
 	path = Engine/Color/ThirdParty/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Engine/Color/ThirdParty/GLFW"]
+	path = Engine/Color/ThirdParty/GLFW
+	url = https://github.com/Light-Prism/GLFW
+[submodule "Engine/Color/ThirdParty/Glad"]
+	path = Engine/Color/ThirdParty/Glad
+	url = https://github.com/Light-Prism/Glad
+[submodule "Engine/Color/ThirdParty/glm"]
+	path = Engine/Color/ThirdParty/glm
+	url = https://github.com/g-truc/glm

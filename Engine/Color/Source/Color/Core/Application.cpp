@@ -1,6 +1,7 @@
 #include "ColorPCH.h"
 #include "Application.h"
 
+#include "Renderer/Renderer.h"
 #include "Utils/FileSystem.h"
 
 namespace Color
@@ -34,6 +35,14 @@ namespace Color
 				CL_CORE_TRACE("Changed the working directory to -> {0}", FileSystem::Abs(FileSystem::GetWorkingDir()));
 			}
 		}
+
+		CL_CORE_INFO("Selected Graphics API -> {0}", RendererAPI::APIToString(RendererAPI::GetAPI()));
+
+		m_Window = Window::New(spec.WndProps);
+		if (!m_Window->Init())
+			CL_CORE_FATAL("Window creation failure!");
+
+		Renderer::Init();
 	}
 
 	Application::~Application()
@@ -54,7 +63,7 @@ namespace Color
 
 		while (m_Running)
 		{
-
+			m_Window->Update();
 		}
 
 		CleanUp();

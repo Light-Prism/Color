@@ -20,7 +20,10 @@ project "Color"
 		"Source",
 		"Source/Color",
 
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.glm}"
 	}
 	
 	defines
@@ -28,6 +31,12 @@ project "Color"
 		-- MSVC-related warning-error disabling
 		"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING",
 		"_CRT_SECURE_NO_WARNINGS"
+	}
+	
+	links
+	{
+		"GLFW",
+		"Glad"
 	}
 	
 	filter "system:windows"

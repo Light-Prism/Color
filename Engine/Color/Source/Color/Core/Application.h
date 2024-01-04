@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Base.h"
+#include "Core/Window.h"
 #include "Misc/ExitCode.h"
 
 namespace Color
@@ -27,6 +27,7 @@ namespace Color
 	{
 		std::string Name;
 		std::string WorkingDir;
+		WindowProps WndProps = { Name };
 	};
 
 	class Application
@@ -41,6 +42,7 @@ namespace Color
 		void Quit();
 		void Exit(ExitCode::Type exitcode);
 
+		Window& GetWindow() const { return *m_Window; }
 		const CommandLineArgs& GetArgs() const { return m_Args; }
 		bool IsRunning() const { return m_Running; }
 
@@ -49,6 +51,7 @@ namespace Color
 		void Run();
 		void CleanUp();
 	private:
+		Scope<Window> m_Window;
 		CommandLineArgs m_Args;
 		bool m_Running = false;
 	private:
