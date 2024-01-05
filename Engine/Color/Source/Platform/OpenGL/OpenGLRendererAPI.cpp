@@ -54,6 +54,22 @@ namespace Color
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
+	{
+		vertexArray->Bind();
+
+		// Use 'indexCount' if it's not 0, use IBO's count otherwise.
+		uint32_t drawIndexCount = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
+
+		glDrawElements(GL_TRIANGLES, drawIndexCount, GL_UNSIGNED_INT, nullptr);
+	}
+
+	void OpenGLRendererAPI::DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
+	{
+		vertexArray->Bind();
+		glDrawArrays(GL_LINES, 0, vertexCount);
+	}
+
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);

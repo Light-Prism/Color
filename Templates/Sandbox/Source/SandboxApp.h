@@ -9,5 +9,8 @@ namespace Sandbox
 	public:
 		SandboxApp(const Color::CommandLineArgs& args);
 		virtual ~SandboxApp() override;
+
+		virtual void PreTick() override;
+		virtual void PostTick() override;
 	};
 }

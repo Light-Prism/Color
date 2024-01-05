@@ -39,6 +39,9 @@ namespace Color
 		Application(const CommandLineArgs& args);
 		virtual ~Application();
 
+		virtual void PreTick() { }
+		virtual void PostTick() { }
+
 		void Quit();
 		void Exit(ExitCode::Type exitcode);
 

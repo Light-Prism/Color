@@ -65,7 +65,11 @@ namespace Color
 
 		while (m_Running)
 		{
+			PreTick();
+
 			m_Window->Update();
+
+			PostTick();
 		}
 
 		CleanUp();

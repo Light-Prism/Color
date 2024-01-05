@@ -4,10 +4,12 @@
 // >>> Include in only one translation unit to avoid duplicate symbol names.
 #include "Core/EntryPoint.h"
 
-#include "Renderer/Buffer.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/VertexArray.h"
 
 namespace Sandbox
 {
+	Color::Ref<Color::VertexArray> VAO;
 	Color::Ref<Color::VertexBuffer> VBO;
 	Color::Ref<Color::IndexBuffer>  IBO;
 
@@ -30,6 +32,9 @@ namespace Sandbox
 			1, 2, 3
 		};
 
+		VAO = Color::VertexArray::New();
+		VAO->Bind();
+
 		VBO = Color::VertexBuffer::New(vertices, sizeof(vertices));
 		VBO->SetLayout({
 			{ Color::ShaderDataType::Float3, "a_Position" }
@@ -37,9 +42,24 @@ namespace Sandbox
 
 		IBO = Color::IndexBuffer::New(indices, 6);
 		IBO->Bind();
+
+		VAO->AddVertexBuffer(VBO);
+		VAO->SetIndexBuffer(IBO);
 	}
 
 	SandboxApp::~SandboxApp()
+	{
+	}
+
+	void SandboxApp::PreTick()
+	{
+		Color::RenderCommand::Clear();
+
+		// This would only render if the vendor-specific OpenGL driver has a default shader (nonstandard) since we currently don't provide one ourselves.
+		Color::RenderCommand::DrawIndexed(VAO);
+	}
+
+	void SandboxApp::PostTick()
 	{
 	}
 }

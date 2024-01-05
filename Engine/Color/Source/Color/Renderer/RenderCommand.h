@@ -22,6 +22,16 @@ namespace Color
 			s_API->Clear();
 		}
 
+		static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0)
+		{
+			s_API->DrawIndexed(vertexArray, indexCount);
+		}
+
+		static void DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
+		{
+			s_API->DrawLines(vertexArray, vertexCount);
+		}
+
 		static void SetClearColor(const glm::vec4& color)
 		{
 			s_API->SetClearColor(color);
