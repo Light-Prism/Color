@@ -47,4 +47,65 @@ namespace Color
 	{
 		return Exists(path) && IsDir(path);
 	}
+
+	bool FileSystem::CreateDir(const Path& path)
+	{
+		return std::filesystem::create_directory(path);
+	}
+
+	bool FileSystem::CreateDirRecursive(const Path& path)
+	{
+		return std::filesystem::create_directories(path);
+	}
+
+	bool FileSystem::CreateNewFile(const Path& path, bool createAbsentLeadingDirectories)
+	{
+		if (FileSystem::Exists(path))
+		{
+			return false;
+		}
+
+		if (createAbsentLeadingDirectories)
+		{
+			Path leadingDirectories = path;
+			leadingDirectories.remove_filename();
+
+			FileSystem::CreateDirRecursive(leadingDirectories);
+		}
+
+		std::ofstream file(path, std::ios::out);
+		return file.is_open();
+	}
+
+	bool FileSystem::RemoveDir(const Path& path)
+	{
+		return std::filesystem::remove_all(path);
+	}
+
+	bool FileSystem::RemoveFile(const Path& path)
+	{
+		return std::filesystem::remove(path);
+	}
+
+	std::string FileSystem::ReadFile(const Path& path, bool& outSuccess)
+	{
+		std::ifstream file(path, std::ios::in | std::ios::binary);
+
+		if (!file)
+		{
+			outSuccess = false;
+			return "";
+		}
+
+		file.seekg(0, std::ios::end);
+		std::streamsize size = file.tellg();
+		file.seekg(0, std::ios::beg);
+
+		std::string result(size, '\0');
+		char* buffer = result.data();
+		file.read(buffer, size);
+
+		outSuccess = true;
+		return result;
+	}
 }

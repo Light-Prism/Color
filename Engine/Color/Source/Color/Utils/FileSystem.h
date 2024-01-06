@@ -23,5 +23,14 @@ namespace Color
 		static bool Exists(const Path& path);
 		static bool FileExists(const Path& path);
 		static bool DirExists(const Path& path);
+
+		static bool CreateDir(const Path& path);
+		static bool CreateDirRecursive(const Path& path);
+		static bool CreateNewFile(const Path& path, bool createAbsentLeadingDirectories = true);
+
+		static bool RemoveDir(const Path& path);
+		static bool RemoveFile(const Path& path);
+
+		static std::string ReadFile(const Path& path, bool& outSuccess);
 	};
 }

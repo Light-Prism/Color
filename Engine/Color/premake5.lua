@@ -23,7 +23,8 @@ project "Color"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.VulkanSDK}",
 	}
 	
 	defines
@@ -65,22 +66,37 @@ project "Color"
 	filter "configurations:Development"
 		runtime "Debug"
 		symbols "On"
+
 		defines
 		{
 			"CL_DEVELOPMENT"
 		}
-	
-	filter "configurations:Preview"
+
+		links
+		{
+			"%{Library.ShaderC_Debug}",
+			"%{Library.SPIRV_Cross_Debug}",
+			"%{Library.SPIRV_Cross_GLSL_Debug}"
+		}
+
+	filter "configurations:Preview or Shipping"
 		runtime "Release"
 		optimize "Speed"
+
+		links
+		{
+			"%{Library.ShaderC_Release}",
+			"%{Library.SPIRV_Cross_Release}",
+			"%{Library.SPIRV_Cross_GLSL_Release}"
+		}
+	
+	filter "configurations:Preview"
 		defines
 		{
 			"CL_PREVIEW"
 		}
 	
 	filter "configurations:Shipping"
-		runtime "Release"
-		optimize "Speed"
 		defines
 		{
 			"CL_SHIPPING"

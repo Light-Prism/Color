@@ -6,9 +6,11 @@
 
 #include "Renderer/RenderCommand.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Shader.h"
 
 namespace Sandbox
 {
+	Color::Ref<Color::Shader> Shader;
 	Color::Ref<Color::VertexArray> VAO;
 	Color::Ref<Color::VertexBuffer> VBO;
 	Color::Ref<Color::IndexBuffer>  IBO;
@@ -31,6 +33,9 @@ namespace Sandbox
 			0, 1, 3,
 			1, 2, 3
 		};
+
+		Shader = Color::Shader::New("Assets/Shaders/FlatColor.glsl");
+		Shader->Bind();
 
 		VAO = Color::VertexArray::New();
 		VAO->Bind();
@@ -65,4 +70,4 @@ namespace Sandbox
 }
 
 IMPLEMENT_APPLICATION(Sandbox::SandboxApp);
-IMPLEMENT_SPECIFICATION("Sandbox", ".");
+IMPLEMENT_SPECIFICATION("Sandbox", "../../Engine/Colorful");

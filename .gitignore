@@ -17,3 +17,9 @@ Makefile
 
 # Log Outputs
 *.log
+
+# Cached Shader Files
+*.cached_opengl.vert
+*.cached_opengl.frag
+*.cached_vulkan.vert
+*.cached_vulkan.frag
