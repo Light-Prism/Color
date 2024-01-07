@@ -20,12 +20,6 @@ namespace Color
 		Logger(std::string name, It begin, It end) : spdlog::logger(name, begin, end) { }
 		virtual ~Logger() = default;
 
-		template <typename... Args>
-		void fatal(std::string_view fmt, Args&&... args)
-		{
-			log(spdlog::level::critical, fmt, std::forward<Args>(args)...);
-		}
-
 		// Runtime (Dist) log
 		template <typename... Args>
 		void RtLog(spdlog::level::level_enum level, std::string_view fmt, Args&&... args)
@@ -127,19 +121,19 @@ namespace Color
 #define CL_CORE_INFO(...)      ::Color::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define CL_CORE_WARN(...)      ::Color::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define CL_CORE_ERROR(...)     ::Color::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define CL_CORE_FATAL(...)   { ::Color::Log::GetCoreLogger()->fatal(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
+#define CL_CORE_FATAL(...)   { ::Color::Log::GetCoreLogger()->critical(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
 
 #define CL_TRACE(...)          ::Color::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define CL_INFO(...)           ::Color::Log::GetClientLogger()->info(__VA_ARGS__)
 #define CL_WARN(...)           ::Color::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define CL_ERROR(...)          ::Color::Log::GetClientLogger()->error(__VA_ARGS__)
-#define CL_FATAL(...)        { ::Color::Log::GetClientLogger()->fatal(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
+#define CL_FATAL(...)        { ::Color::Log::GetClientLogger()->critical(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
 
 #define CL_ASSERT_TRACE(...)   ::Color::Log::GetAssertLogger()->trace(__VA_ARGS__)
 #define CL_ASSERT_INFO(...)    ::Color::Log::GetAssertLogger()->info(__VA_ARGS__)
 #define CL_ASSERT_WARN(...)    ::Color::Log::GetAssertLogger()->warn(__VA_ARGS__)
 #define CL_ASSERT_ERROR(...)   ::Color::Log::GetAssertLogger()->error(__VA_ARGS__)
-#define CL_ASSERT_FATAL(...) { ::Color::Log::GetAssertLogger()->fatal(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
+#define CL_ASSERT_FATAL(...) { ::Color::Log::GetAssertLogger()->critical(__VA_ARGS__); ::Color::Log::DebugPostFatalLog(); }
 
 #else
 
