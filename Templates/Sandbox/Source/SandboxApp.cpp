@@ -5,12 +5,16 @@
 #include "Core/EntryPoint.h"
 
 #include "Renderer/RenderCommand.h"
+#include "Renderer/UniformBuffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Texture.h"
 #include "Renderer/Shader.h"
 
 namespace Sandbox
 {
+	Color::Ref<Color::Texture2D> Texture;
 	Color::Ref<Color::Shader> Shader;
+	Color::Ref<Color::UniformBuffer> UBO;
 	Color::Ref<Color::VertexArray> VAO;
 	Color::Ref<Color::VertexBuffer> VBO;
 	Color::Ref<Color::IndexBuffer>  IBO;
@@ -22,10 +26,10 @@ namespace Sandbox
 
 		float vertices[] =
 		{
-			 0.5f,  0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			-0.5f, -0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+			 0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f,    1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 0.0f,
+			-0.5f, -0.5f, 0.0f,    1.0f, 1.0f, 1.0f, 1.0f,    0.0f, 0.0f,
+			-0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 1.0f, 1.0f,    0.0f, 1.0f
 		};
 
 		uint32_t indices[] =
@@ -34,15 +38,23 @@ namespace Sandbox
 			1, 2, 3
 		};
 
-		Shader = Color::Shader::New("Assets/Shaders/FlatColor.glsl");
+		Texture = Color::Texture2D::New("Assets/Textures/Light_Prism_Logo_Banner.png");
+		Texture->Bind();
+
+		Shader = Color::Shader::New("Assets/Shaders/Textured.glsl");
 		Shader->Bind();
+
+		UBO = Color::UniformBuffer::New(sizeof(int), 0);
+		UBO->SetData(0, sizeof(int));
 
 		VAO = Color::VertexArray::New();
 		VAO->Bind();
 
 		VBO = Color::VertexBuffer::New(vertices, sizeof(vertices));
 		VBO->SetLayout({
-			{ Color::ShaderDataType::Float3, "a_Position" }
+			{ Color::ShaderDataType::Float3, "a_Position" },
+			{ Color::ShaderDataType::Float4, "a_Color" },
+			{ Color::ShaderDataType::Float2, "a_TexCoord" }
 		});
 
 		IBO = Color::IndexBuffer::New(indices, 6);
@@ -50,6 +62,8 @@ namespace Sandbox
 
 		VAO->AddVertexBuffer(VBO);
 		VAO->SetIndexBuffer(IBO);
+
+		//Color::RenderCommand::SetClearColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 	}
 
 	SandboxApp::~SandboxApp()
@@ -59,8 +73,6 @@ namespace Sandbox
 	void SandboxApp::PreTick()
 	{
 		Color::RenderCommand::Clear();
-
-		// This would only render if the vendor-specific OpenGL driver has a default shader (nonstandard) since we currently don't provide one ourselves.
 		Color::RenderCommand::DrawIndexed(VAO);
 	}
 
