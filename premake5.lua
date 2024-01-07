@@ -13,6 +13,7 @@ include "Globals.lua"
 group "Engine/ThirdParty"
 	include "Engine/Color/ThirdParty/GLFW"
 	include "Engine/Color/ThirdParty/Glad"
+	include "Engine/Color/ThirdParty/stb"
 group ""
 
 group "Engine"

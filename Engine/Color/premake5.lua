@@ -22,6 +22,7 @@ project "Color"
 
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.stb}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.VulkanSDK}",
@@ -37,7 +38,8 @@ project "Color"
 	links
 	{
 		"GLFW",
-		"Glad"
+		"Glad",
+		"stb"
 	}
 	
 	filter "system:windows"
