@@ -30,7 +30,7 @@ namespace Color
 		CL_CORE_INFO("  {0} texture units available", maxTextureUnits);
 
 		if (GLVersion.major < 4 || (GLVersion.major == 4 && GLVersion.minor < 5))
-			CL_CORE_FATAL("A graphics card with at least OpenGL version 4.5 support is required!");
+			CL_CORE_FATAL("A graphics card with at least OpenGL version 4.5 support is required, current card has OpenGL {0}.{1}!", GLVersion.major, GLVersion.minor);
 	}
 
 	void OpenGLContext::SwapBuffers()
